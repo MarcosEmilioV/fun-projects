@@ -1,4 +1,38 @@
 import keyboard
+import ctypes
+import os
 
-backgroundpath = 'C:\Users\KSEQUEIRA\AppData\Roaming\Microsoft\Windows\Themes\TranscodedWallpaper'
+def change_wallpaper(image_path):
+    # Constants for setting the wallpaper
+    SPI_SETDESKWALLPAPER = 20  # Action to change wallpaper
+    SPIF_UPDATEINIFILE = 0x01  # Update user profile
+    SPIF_SENDWININICHANGE = 0x02  # Notify change to system
 
+    try:
+        # Call Windows API to change wallpaper
+        ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, image_path,
+                                                   SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE)
+        return True
+    except Exception as e:
+        # Print error message if wallpaper change fails
+        print(f"Error changing wallpaper: {e}")
+        return False
+    
+
+
+names = []
+for name in os.listdir(r"C:\Users\KSEQUEIRA\Documents\backgroundimages"):
+    names.append(name) 
+    
+full_path = []
+for name in names:
+    full_pathtest = os.path.join(r"C:\Users\KSEQUEIRA\Documents\backgroundimages", name)
+    full_path.append(full_pathtest)
+
+def on_hotkey():
+    for image in full_path:
+        change_wallpaper(image)
+
+keyboard.add_hotkey("shift + l", on_hotkey)
+
+keyboard.wait()
