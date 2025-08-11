@@ -1,7 +1,8 @@
 import os 
 
 
-downloads = r'C:\Users\USER\Downloads'
+downloads = r'C:\Users\KSEQUEIRA\Downloads'
+new_folder = r'C:\Users\KSEQUEIRA\Downloads\testorder'
 
 extensions = ['.mp3','.pdf','.mp4','.png','.jpg','.exe','.jpeg','.xls','.ogg','.docx','.zip','.rar']
 
@@ -13,7 +14,7 @@ print(test[1])
 for file in files:
     extension = os.path.splitext(file)
     if extension[1] in extensions:
-        #ordernar
+        os.rename(downloads + r'f"\{file}"', new_folder + r'f"\{file}"')
   
 
 
